@@ -1,0 +1,185 @@
+
+<!DOCTYPE HTML>
+<p id="gen"></p>
+<p id="clock"></p>
+<canvas id="canvas"></canvas>
+<script>
+var c=document.getElementById("canvas");
+var ctx=c.getContext("2d");
+ctx.canvas.width = window.innerWidth - 75;
+ctx.canvas.height = window.innerHeight - 75;
+
+var p1direction = "";
+var p2direction = "";
+
+var p1moves = [];
+var p2moves = [];
+
+var startingX = 50;
+var startingY = 250;
+
+var player1X = startingX;
+var player1Y = startingY;
+
+var player2X = startingX;
+var player2Y = startingY;
+
+var plantX = 500;
+var plantY = 200;
+
+var winning = "";
+
+var generations = 0;
+
+function player1(){
+ctx.fillStyle = "white";
+ctx.fillRect(player1X - 5, player1Y - 5, 20, 20);
+ctx.fillStyle = "red";
+ctx.fillRect(player1X, player1Y, 5, 5);
+}
+
+function player2(){
+ctx.fillStyle = "white";
+ctx.fillRect(player2X - 5, player2Y - 5, 20, 20);
+ctx.fillStyle = "blue";
+ctx.fillRect(player2X, player2Y, 5, 5);
+}
+
+function plant(){
+ctx.fillStyle = "green";
+ctx.fillRect(plantX, plantY, 500, 500);
+}
+
+player2();
+player1();
+plant();
+
+setInterval(function(){
+if(p1direction == "right"){
+if(player1X < ctx.canvas.width){
+player1X += 5;
+player1();
+}
+} else if(p1direction == "left"){
+if(player1X > 0){
+player1X -= 5;
+player1();
+}
+} else if(p1direction == "up"){
+if(player1Y > 0){
+player1Y -= 5;
+player1();
+}
+} else if(p1direction == "down"){
+if(player1Y < ctx.canvas.height){
+player1Y += 5;
+player1();
+}
+}
+}, 1);
+
+setInterval(function(){
+if(p2direction == "right"){
+if(player2X < ctx.canvas.width){
+player2X += 5;
+player2();
+}
+} else if(p2direction == "left"){
+if(player2X > 0){
+player2X -= 5;
+player2();
+}
+} else if(p2direction == "up"){
+if(player2Y > 0){
+player2Y -= 5;
+player2();
+}
+} else if(p2direction == "down"){
+if(player2Y < ctx.canvas.height){
+player2Y += 5;
+player2();
+}
+}
+}, 1);
+
+
+var i = 0;
+setInterval(function(){
+if(winning == "player1"){
+p1direction = p1moves[i];
+p2moves = [];
+i++;
+} if(winning == "player2"){
+p2direction = p2moves[i];
+p1moves = [];
+i++;
+}
+}, 1);
+  
+setInterval(function(){
+if(winning !== "player1"){
+var random = Math.floor(Math.random() * 4) + 1;
+if(random == 1){
+p1direction = "right";
+p1moves.push("right");
+} else if(random == 2){
+p1direction = "left";
+p1moves.push("left");
+} else if(random == 3){
+p1direction = "up";
+p1moves.push("up");
+} else if(random == 4){
+p1direction = "down";
+p1moves.push("down");
+}
+}
+}, 1);
+
+setInterval(function(){
+if(winning !== "player2"){
+var random = Math.floor(Math.random() * 4) + 1;
+if(random == 1){
+p2direction = "right";
+p2moves.push("right");
+} else if(random == 2){
+p2direction = "left";
+p2moves.push("left");
+} else if(random == 3){
+p2direction = "up";
+p2moves.push("up");
+} else if(random == 4){
+p2direction = "down";
+p2moves.push("down");
+}
+}
+}, 1);
+
+setInterval(function(){
+if(player1X >= plantX && player1X <= plantX + 500 && player1Y >= plantY && player1Y <= plantY + 500){
+winning = "player1";
+player1X = startingX;
+player1Y = startingY;
+player2X = startingX;
+player2Y = startingY;
+generations ++;
+} if(player2X >= plantX && player2X <= plantX + 500 && player2Y >= plantY && player2Y <= plantY + 500){
+winning = "player2";
+player1X = startingX;
+player1Y = startingY;
+player2X = startingX;
+player2Y = startingY;
+generations ++;
+}
+}, 1);
+
+setInterval(function(){
+document.getElementById("gen").innerHTML ="Number of generations so far: " + generations;
+}, 1);
+var xyzabc = 0;
+
+setInterval(function(){
+xyzabc += 1;
+document.getElementById("clock").innerHTML = xyzabc;
+}, 1000);
+
+</script>
