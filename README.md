@@ -5,3 +5,10 @@ On the 2nd generation, just completely stops working
 On generation 1, doesn't go to the same place it got to on generation 0
 
 Help plz =(
+
+Here's how it's supposed to work:
+
+2 Random AI are born
+Whichever reaches the plant in the fewest amount of moves "wins" and keeps its memory of all the moves it has made, the other AI has its memory wiped
+1 random AI is generated and the AI that had won the last "contest" follows the same path it did last time.
+Go to step 2.
