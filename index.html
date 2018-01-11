@@ -1,10 +1,12 @@
 
 
+
+
 <!DOCTYPE HTML>
 <p id="gen"></p>
 <canvas id="canvas"></canvas>
-<script>
 
+<script>
 var c=document.getElementById("canvas");
 var ctx=c.getContext("2d");
 ctx.canvas.width = window.innerWidth - 75;
@@ -107,19 +109,18 @@ player2();
 
 
 var i = 0;
-var p2cleared = false;
 setInterval(function(){
 if(winning == "player1"){
 console.log("player 1 is following it's previous moves!");
 p1direction = p1moves[i];
-if(i == 0){
+if(i === 0){
 p2moves = [];
 console.log("Player 2's moves cleared!");
 }
 i++;
 } if(winning == "player2"){
 p2direction = p2moves[i];
-if(i == 0){
+if(i === 0){
 p1moves = [];
 console.log("Player 1's moves cleared!");
 }
@@ -196,4 +197,5 @@ generations ++;
 setInterval(function(){
 document.getElementById("gen").innerHTML ="Number of generations so far: " + generations;
 }, 1);
+
 </script>
