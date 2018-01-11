@@ -1,9 +1,10 @@
 
+
 <!DOCTYPE HTML>
 <p id="gen"></p>
-<p id="clock"></p>
 <canvas id="canvas"></canvas>
 <script>
+
 var c=document.getElementById("canvas");
 var ctx=c.getContext("2d");
 ctx.canvas.width = window.innerWidth - 75;
@@ -28,7 +29,6 @@ var plantX = 500;
 var plantY = 200;
 
 var winning = "";
-
 var generations = 0;
 
 function player1(){
@@ -54,6 +54,8 @@ player2();
 player1();
 plant();
 
+//Had to delete most of the code since it was being a dipsh- I mean dip poopy and not working =(
+
 setInterval(function(){
 if(p1direction == "right"){
 if(player1X < ctx.canvas.width){
@@ -77,6 +79,7 @@ player1();
 }
 }
 }, 1);
+
 
 setInterval(function(){
 if(p2direction == "right"){
@@ -104,20 +107,30 @@ player2();
 
 
 var i = 0;
+var p2cleared = false;
 setInterval(function(){
 if(winning == "player1"){
+console.log("player 1 is following it's previous moves!");
 p1direction = p1moves[i];
+if(i == 0){
 p2moves = [];
+console.log("Player 2's moves cleared!");
+}
 i++;
 } if(winning == "player2"){
 p2direction = p2moves[i];
+if(i == 0){
 p1moves = [];
+console.log("Player 1's moves cleared!");
+}
 i++;
 }
 }, 1);
-  
+
+
 setInterval(function(){
-if(winning !== "player1"){
+if(winning == "player2" || winning === "" || winning !== "player1"){
+console.log("player 1 is moving in a random direction!");
 var random = Math.floor(Math.random() * 4) + 1;
 if(random == 1){
 p1direction = "right";
@@ -136,7 +149,8 @@ p1moves.push("down");
 }, 1);
 
 setInterval(function(){
-if(winning !== "player2"){
+if(winning == "player1" || winning === "" || winning !== "player2"){
+console.log("player 2 is moving in a random direction!");
 var random = Math.floor(Math.random() * 4) + 1;
 if(random == 1){
 p2direction = "right";
@@ -154,8 +168,12 @@ p2moves.push("down");
 }
 }, 1);
 
+
 setInterval(function(){
 if(player1X >= plantX && player1X <= plantX + 500 && player1Y >= plantY && player1Y <= plantY + 500){
+console.log("Player 1 is winning!");
+i = 0;
+console.log("i reset to " + i);
 winning = "player1";
 player1X = startingX;
 player1Y = startingY;
@@ -163,6 +181,9 @@ player2X = startingX;
 player2Y = startingY;
 generations ++;
 } if(player2X >= plantX && player2X <= plantX + 500 && player2Y >= plantY && player2Y <= plantY + 500){
+console.log("Player 2 is winning!");
+i = 0;
+console.log("i reset to " + i);
 winning = "player2";
 player1X = startingX;
 player1Y = startingY;
@@ -175,11 +196,4 @@ generations ++;
 setInterval(function(){
 document.getElementById("gen").innerHTML ="Number of generations so far: " + generations;
 }, 1);
-var xyzabc = 0;
-
-setInterval(function(){
-xyzabc += 1;
-document.getElementById("clock").innerHTML = xyzabc;
-}, 1000);
-
 </script>
