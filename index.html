@@ -1,195 +1,200 @@
-
-
-
-
-<!DOCTYPE HTML>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
 <p id="gen"></p>
 <canvas id="canvas"></canvas>
+  <script>
+    //Most of the credit goes to Arjes on Reddit for helping me out!
 
-<script>
 var c=document.getElementById("canvas");
 var ctx=c.getContext("2d");
 ctx.canvas.width = window.innerWidth - 75;
 ctx.canvas.height = window.innerHeight - 75;
 
-var p1direction = "";
-var p2direction = "";
-
-var p1moves = [];
-var p2moves = [];
-
 var startingX = 50;
 var startingY = 250;
 
-var player1X = startingX;
-var player1Y = startingY;
+var playerPositions;
 
-var player2X = startingX;
-var player2Y = startingY;
+var movesThisGeneration;
+var bestPathFound = [];
 
-var plantX = ctx.canvas.width/2;
-var plantY = 0;
+var plantX = 80;
+var plantY = ctx.canvas.height - 50;
 
-var winning = "";
-var generations = 0;
+var plantWidth = 300;
+var plantHeight = 50;
 
-function player1(){
-ctx.fillStyle = "white";
-ctx.fillRect(player1X - 5, player1Y - 5, 20, 20);
-ctx.fillStyle = "red";
-ctx.fillRect(player1X, player1Y, 5, 5);
+var generations = -1;
+
+function drawPlayer1(){
+  ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player1.x - 5, playerPositions.player1.y - 5, 20, 20);
+  ctx.fillStyle = "red";
+  ctx.fillRect(playerPositions.player1.x, playerPositions.player1.y, 5, 5);
 }
 
-function player2(){
-ctx.fillStyle = "white";
-ctx.fillRect(player2X - 5, player2Y - 5, 20, 20);
-ctx.fillStyle = "blue";
-ctx.fillRect(player2X, player2Y, 5, 5);
+function drawPlayer2(){
+  ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player2.x - 5, playerPositions.player2.y - 5, 20, 20);
+  ctx.fillStyle = "blue";
+  ctx.fillRect(playerPositions.player2.x, playerPositions.player2.y, 5, 5);
 }
 
-function plant(){
-ctx.fillStyle = "orange";
-ctx.fillRect(plantX, plantY, 10000, 1000000);
+function drawPlant(){
+  ctx.fillStyle = "green";
+  ctx.fillRect(plantX, plantY, plantWidth, plantHeight);
 }
 
-player2();
-player1();
-plant();
 
-//Had to delete most of the code since it was being a dipsh- I mean dip poopy and not working =(
+drawPlant();
+nextGeneration();
+var currentTick = 0;
+function tick() {
+  drawPlayer2();
+  drawPlayer1();
+  movePlayers();
+  evaluateVictory();
+  currentTick++;
+  checkForFailure();
+
+}
+
+function checkForFailure() {
+  if (bestPathFound.length && currentTick > bestPathFound.length) {
+    nextGeneration()
+  }
+}
+function movePlayers() {
+  movePlayer('player1');
+  movePlayer('player2');
+}
+
+function pickDirection() {
+  var directionToMove;
+  // 90% chance to follow existing path. 10% chance for deviation
+  if(bestPathFound.length >= currentTick && Math.random < 0.9) {
+    return bestPathFound[currentTick]
+  }
+
+  if(!directionToMove) {
+    switch(Math.floor(Math.random() * 4) + 1) { // Random number between ranges
+      case 1:
+        return 'left';
+      case 2:
+        return 'right';
+      case 3:
+        return 'up';
+      case 4:
+        return 'down';
+    }
+  }
+}
+function movePlayer(playerName) {
+  var directionToMove = pickDirection();
+
+  movesThisGeneration[playerName].push(directionToMove);
+  switch(directionToMove) {
+    case 'up':
+      playerPositions[playerName] = {
+        x: playerPositions[playerName].x,
+        y: playerPositions[playerName].y + 5,
+      }
+      break;
+    case 'down':
+      playerPositions[playerName] = {
+        x: playerPositions[playerName].x,
+        y: playerPositions[playerName].y - 5,
+      }
+      break;
+    case 'left':
+      playerPositions[playerName] = {
+        x: playerPositions[playerName].x - 5,
+        y: playerPositions[playerName].y,
+      }
+      break;
+    case 'right':
+      playerPositions[playerName] = {
+        x: playerPositions[playerName].x + 5,
+        y: playerPositions[playerName].y,
+      }
+      break;
+  }
+
+  correctPlayerPosition(playerName);
+
+}
+
+function correctPlayerPosition(playerName) {
+  if( playerPositions[playerName].x < 0 ) {
+    playerPositions[playerName].x = 0;
+  }
+
+  if( playerPositions[playerName].x > ctx.canvas.width) {
+    playerPositions[playerName].x = ctx.canvas.width;
+  }
+
+  if( playerPositions[playerName].y < 0 ) {
+    playerPositions[playerName].y = 0;
+  }
+
+  if( playerPositions[playerName].y > ctx.canvas.height ) {
+    playerPositions[playerName].y = ctx.canvas.height;
+  }
+}
+
+function evaluateVictory() {
+  if(playerPositions.player1.x >= plantX && playerPositions.player1.x <= plantX + plantWidth) {
+    if(playerPositions.player1.y >= plantY && playerPositions.player1.y <= plantY + plantHeight){
+    declareVictor('player1');
+    }
+  }  if(playerPositions.player2.x >= plantX && playerPositions.player2.x <= plantX + plantWidth) {
+    if(playerPositions.player2.y >= plantY && playerPositions.player2.y <= plantY + plantHeight){
+    declareVictor('player2');
+  }
+  }
+}
+
+function declareVictor(playerName) {
+  if(
+    !bestPathFound.length ||
+    bestPathFound.length > movesThisGeneration[playerName].length
+  ) {
+    bestPathFound = movesThisGeneration[playerName]
+  }
+
+  nextGeneration();
+}
+
+function nextGeneration() {
+  currentTick = 0;
+
+  playerPositions = {
+    player1: {x: startingX, y: startingY},
+    player2: {x: startingX, y: startingY}
+  };
+
+  movesThisGeneration = {
+    player1: [],
+    player2: []
+  };
+
+  generations++;
+  document.getElementById("gen").innerHTML ="Number of generations so far: " + generations + " Moves to Plant: " + bestPathFound.length;
+}
+
+setInterval(tick, 1);
+
 setInterval(function(){
-if(p1direction == "right"){
-if(player1X < ctx.canvas.width){
-player1X += 5;
-player1();
-}
-} else if(p1direction == "left"){
-if(player1X > 0){
-player1X -= 5;
-player1();
-}
-} else if(p1direction == "up"){
-if(player1Y > 0){
-player1Y -= 5;
-player1();
-}
-} else if(p1direction == "down"){
-if(player1Y < ctx.canvas.height){
-player1Y += 5;
-player1();
-}
-}
-}, 1);
+  console.log(bestPathFound);
+}, 60000);
 
 
-setInterval(function(){
-if(p2direction == "right"){
-if(player2X < ctx.canvas.width){
-player2X += 5;
-player2();
-}
-} else if(p2direction == "left"){
-if(player2X > 0){
-player2X -= 5;
-player2();
-}
-} else if(p2direction == "up"){
-if(player2Y > 0){
-player2Y -= 5;
-player2();
-}
-} else if(p2direction == "down"){
-if(player2Y < ctx.canvas.height){
-player2Y += 5;
-player2();
-}
-}
-}, 1);
-
-
-var i = 0;
-setInterval(function(){
-if(winning == "player1"){
-console.log("player 1 is following it's previous moves!");
-p1direction = p1moves[i];
-i++;
-}else if(winning == "player2"){
-p2direction = p2moves[i];
-i++;
-}
-}, 1);
-
-setInterval(function(){
-if(winning == "player2" || winning === "" || winning !== "player1"){
-console.log("player 1 is moving in a random direction!");
-var random = Math.floor(Math.random() * 4) + 1;
-if(random == 1){
-p1direction = "right";
-p1moves.push("right");
-} else if(random == 2){
-p1direction = "left";
-p1moves.push("left");
-} else if(random == 3){
-p1direction = "up";
-p1moves.push("up");
-} else if(random == 4){
-p1direction = "down";
-p1moves.push("down");
-}
-} else {
-console.log("player 1 is not moving in a random direction!");
-}
-}, 1);
-
-setInterval(function(){
-if(winning == "player1" || winning === "" || winning !== "player2"){
-console.log("player 2 is moving in a random direction!");
-var random = Math.floor(Math.random() * 4) + 1;
-if(random == 1){
-p2direction = "right";
-p2moves.push("right");
-} else if(random == 2){
-p2direction = "left";
-p2moves.push("left");
-} else if(random == 3){
-p2direction = "up";
-p2moves.push("up");
-} else if(random == 4){
-p2direction = "down";
-p2moves.push("down");
-}
-} else {
-console.log("player 2 is not moving in a random direction");
-}
-}, 1);
-
-setInterval(function(){
-if(player1X >= ctx.canvas.width/2){
-winning = "player1";
-player1X = startingX;
-player2X = startingX;
-player2Y = startingY;
-player1Y = startingY;
-p2moves = [];
-generations ++;
-alert(p2moves);
-alert(p1moves);
-} else if(player2X >= ctx.canvas.width/2){
-winning = "player2";
-player1X = startingX;
-player2X = startingX;
-player2Y = startingY;
-player1Y = startingY;
-p1moves = [];
-generations ++;
-alert(p2moves);
-alert(p1moves);
-}
-}, 1);
-
-setInterval(function(){
-document.getElementById("gen").innerHTML ="Number of generations so far: " + generations;
-}, 1);
-
-
-</script>
+  </script>
+</body>
+</html>
