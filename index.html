@@ -10,7 +10,8 @@
 <p id="gen"></p>
 <canvas id="canvas"></canvas>
   <script>
-    //Most of the credit goes to Arjes on Reddit for helping me out!
+
+    //Much credit to Arjes on Reddit for helping me out!
 
 var c=document.getElementById("canvas");
 var ctx=c.getContext("2d");
@@ -33,6 +34,10 @@ var plantHeight = 50;
 
 var generations = -1;
 
+function drawPlayerBest(){
+
+}
+
 function drawPlayer1(){
   ctx.fillStyle = "white";
   ctx.fillRect(playerPositions.player1.x - 5, playerPositions.player1.y - 5, 20, 20);
@@ -43,8 +48,16 @@ function drawPlayer1(){
 function drawPlayer2(){
   ctx.fillStyle = "white";
   ctx.fillRect(playerPositions.player2.x - 5, playerPositions.player2.y - 5, 20, 20);
-  ctx.fillStyle = "blue";
+  ctx.fillStyle = "green";
   ctx.fillRect(playerPositions.player2.x, playerPositions.player2.y, 5, 5);
+}
+
+function drawPlayer3(){
+  ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player3.x - 5, playerPositions.player3.y - 5, 20, 20);
+  ctx.fillStyle = "orange";
+  ctx.fillRect(playerPositions.player3.x, playerPositions.player3.y, 5, 5);
+
 }
 
 function drawPlant(){
@@ -59,28 +72,29 @@ var currentTick = 0;
 function tick() {
   drawPlayer2();
   drawPlayer1();
+  drawPlayer3();
   movePlayers();
   evaluateVictory();
   currentTick++;
   checkForFailure();
-
 }
 
 function checkForFailure() {
   if (bestPathFound.length && currentTick > bestPathFound.length) {
-    nextGeneration()
+    nextGeneration();
   }
 }
 function movePlayers() {
   movePlayer('player1');
   movePlayer('player2');
+  movePlayer('player3');
 }
 
 function pickDirection() {
   var directionToMove;
   // 90% chance to follow existing path. 10% chance for deviation
   if(bestPathFound.length >= currentTick && Math.random < 0.9) {
-    return bestPathFound[currentTick]
+    return bestPathFound[currentTick];
   }
 
   if(!directionToMove) {
@@ -154,15 +168,20 @@ function evaluateVictory() {
     if(playerPositions.player1.y >= plantY && playerPositions.player1.y <= plantY + plantHeight){
     declareVictor('player1');
   console.log(bestPathFound);
-
     }
   }  if(playerPositions.player2.x >= plantX && playerPositions.player2.x <= plantX + plantWidth) {
     if(playerPositions.player2.y >= plantY && playerPositions.player2.y <= plantY + plantHeight){
     declareVictor('player2');
   console.log(bestPathFound);
+  }
+  }
 
-  }
-  }
+if(playerPositions.player3.x >= plantX && playerPositions.player3.x <= plantX + plantWidth) {
+    if(playerPositions.player3.y >= plantY && playerPositions.player3.y <= plantY + plantHeight){
+    declareVictor('player3');
+  console.log(bestPathFound);
+    }
+  } 
 }
 
 function declareVictor(playerName) {
@@ -181,12 +200,14 @@ function nextGeneration() {
 
   playerPositions = {
     player1: {x: startingX, y: startingY},
-    player2: {x: startingX, y: startingY}
+    player2: {x: startingX, y: startingY},
+    player3: {x: startingX, y: startingY}
   };
 
   movesThisGeneration = {
     player1: [],
-    player2: []
+    player2: [],
+    player3: []
   };
 
   generations++;
@@ -197,6 +218,7 @@ setInterval(tick, 1);
 
 
 
+ 
   </script>
 </body>
 </html>
