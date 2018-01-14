@@ -261,8 +261,8 @@ movePlayer('player20');
 
 function pickDirection() {
   var directionToMove;
-  // 90% chance to follow existing path. 10% chance for deviation
-  if(bestPathFound.length >= currentTick && Math.random < 0.9) {
+  // 99% chance to follow existing path. 1% chance for deviation
+  if(bestPathFound.length >= currentTick && Math.random < 0.99) {
     return bestPathFound[currentTick];
   }
 
