@@ -1,9 +1,10 @@
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>JS Bin</title>
+  <title>JS Genetic Algorithm</title>
 </head>
 <body>
 <p id="gen"></p>
@@ -152,10 +153,14 @@ function evaluateVictory() {
   if(playerPositions.player1.x >= plantX && playerPositions.player1.x <= plantX + plantWidth) {
     if(playerPositions.player1.y >= plantY && playerPositions.player1.y <= plantY + plantHeight){
     declareVictor('player1');
+  console.log(bestPathFound);
+
     }
   }  if(playerPositions.player2.x >= plantX && playerPositions.player2.x <= plantX + plantWidth) {
     if(playerPositions.player2.y >= plantY && playerPositions.player2.y <= plantY + plantHeight){
     declareVictor('player2');
+  console.log(bestPathFound);
+
   }
   }
 }
@@ -190,9 +195,6 @@ function nextGeneration() {
 
 setInterval(tick, 1);
 
-setInterval(function(){
-  console.log(bestPathFound);
-}, 60000);
 
 
   </script>
