@@ -194,6 +194,83 @@ ctx.fillStyle = "white";
 
 
 
+function drawPlayer21(){
+ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player20.x - 5, playerPositions.player20.y - 5, 20, 20);
+  ctx.fillStyle = "aqua";
+  ctx.fillRect(playerPositions.player20.x, playerPositions.player20.y, 5, 5);
+}
+
+function drawPlayer22(){
+ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player20.x - 5, playerPositions.player20.y - 5, 20, 20);
+  ctx.fillStyle = "aquamarine";
+  ctx.fillRect(playerPositions.player20.x, playerPositions.player20.y, 5, 5);
+}
+
+
+function drawPlayer23(){
+ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player20.x - 5, playerPositions.player20.y - 5, 20, 20);
+  ctx.fillStyle = "azure";
+  ctx.fillRect(playerPositions.player20.x, playerPositions.player20.y, 5, 5);
+}
+
+
+function drawPlayer24(){
+ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player20.x - 5, playerPositions.player20.y - 5, 20, 20);
+  ctx.fillStyle = "beige";
+  ctx.fillRect(playerPositions.player20.x, playerPositions.player20.y, 5, 5);
+}
+
+
+function drawPlayer25(){
+ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player20.x - 5, playerPositions.player20.y - 5, 20, 20);
+  ctx.fillStyle = "bisque";
+  ctx.fillRect(playerPositions.player20.x, playerPositions.player20.y, 5, 5);
+}
+
+
+function drawPlayer26(){
+ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player20.x - 5, playerPositions.player20.y - 5, 20, 20);
+  ctx.fillStyle = "black";
+  ctx.fillRect(playerPositions.player20.x, playerPositions.player20.y, 5, 5);
+}
+
+
+function drawPlayer27(){
+ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player20.x - 5, playerPositions.player20.y - 5, 20, 20);
+  ctx.fillStyle = "blanchedalmond";
+  ctx.fillRect(playerPositions.player20.x, playerPositions.player20.y, 5, 5);
+}
+
+function drawPlayer28(){
+ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player20.x - 5, playerPositions.player20.y - 5, 20, 20);
+  ctx.fillStyle = "blueviolet";
+  ctx.fillRect(playerPositions.player20.x, playerPositions.player20.y, 5, 5);
+}
+
+function drawPlayer29(){
+ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player20.x - 5, playerPositions.player20.y - 5, 20, 20);
+  ctx.fillStyle = "burlywood";
+  ctx.fillRect(playerPositions.player20.x, playerPositions.player20.y, 5, 5);
+}
+
+function drawPlayer30(){
+ctx.fillStyle = "white";
+  ctx.fillRect(playerPositions.player20.x - 5, playerPositions.player20.y - 5, 20, 20);
+  ctx.fillStyle = "cadetblue";
+  ctx.fillRect(playerPositions.player20.x, playerPositions.player20.y, 5, 5);
+}
+
+
+
 function drawPlant(){
   ctx.fillStyle = "green";
   ctx.fillRect(plantX, plantY, plantWidth, plantHeight);
@@ -224,6 +301,16 @@ drawPlayer17();
 drawPlayer18();
 drawPlayer19();
 drawPlayer20();
+drawPlayer21();
+drawPlayer22();
+drawPlayer23();
+drawPlayer24();
+drawPlayer25();
+drawPlayer26();
+drawPlayer27();
+drawPlayer28();
+drawPlayer29();
+drawPlayer30();
 
   movePlayers();
   evaluateVictory();
@@ -257,12 +344,23 @@ movePlayer('player17');
 movePlayer('player18');
 movePlayer('player19');
 movePlayer('player20');
+movePlayer('player21');
+movePlayer('player22');
+movePlayer('player23');
+movePlayer('player24');
+movePlayer('player25');
+movePlayer('player26');
+movePlayer('player27');
+movePlayer('player28');
+movePlayer('player29');
+movePlayer('player30');
+
 }
 
 function pickDirection() {
   var directionToMove;
-  // 99% chance to follow existing path. 1% chance for deviation
-  if(bestPathFound.length >= currentTick && Math.random < 0.99) {
+  // 99.9% chance to follow existing path. 1% chance for deviation
+  if(bestPathFound.length >= currentTick && Math.random < 0.999) {
     return bestPathFound[currentTick];
   }
 
@@ -474,6 +572,72 @@ if(playerPositions.player20.x >= plantX && playerPositions.player20.x <= plantX 
   console.log(bestPathFound);
     }
   } 
+if(playerPositions.player21.x >= plantX && playerPositions.player21.x <= plantX + plantWidth) {
+    if(playerPositions.player21.y >= plantY && playerPositions.player21.y <= plantY + plantHeight){
+    declareVictor('player21');
+  console.log(bestPathFound);
+    }
+  } 
+if(playerPositions.player22.x >= plantX && playerPositions.player22.x <= plantX + plantWidth) {
+    if(playerPositions.player22.y >= plantY && playerPositions.player22.y <= plantY + plantHeight){
+    declareVictor('player22');
+  console.log(bestPathFound);
+    }
+  } 
+if(playerPositions.player23.x >= plantX && playerPositions.player23.x <= plantX + plantWidth) {
+    if(playerPositions.player23.y >= plantY && playerPositions.player23.y <= plantY + plantHeight){
+    declareVictor('player23');
+  console.log(bestPathFound);
+    }
+  } 
+if(playerPositions.player24.x >= plantX && playerPositions.player24.x <= plantX + plantWidth) {
+    if(playerPositions.player24.y >= plantY && playerPositions.player24.y <= plantY + plantHeight){
+    declareVictor('player24');
+  console.log(bestPathFound);
+    }
+  } 
+if(playerPositions.player25.x >= plantX && playerPositions.player25.x <= plantX + plantWidth) {
+    if(playerPositions.player25.y >= plantY && playerPositions.player25.y <= plantY + plantHeight){
+    declareVictor('player25');
+  console.log(bestPathFound);
+    }
+  } 
+if(playerPositions.player26.x >= plantX && playerPositions.player26.x <= plantX + plantWidth) {
+    if(playerPositions.player26.y >= plantY && playerPositions.player26.y <= plantY + plantHeight){
+    declareVictor('player26');
+  console.log(bestPathFound);
+    }
+  } 
+if(playerPositions.player26.x >= plantX && playerPositions.player26.x <= plantX + plantWidth) {
+    if(playerPositions.player26.y >= plantY && playerPositions.player26.y <= plantY + plantHeight){
+    declareVictor('player26');
+  console.log(bestPathFound);
+    }
+  } 
+if(playerPositions.player27.x >= plantX && playerPositions.player27.x <= plantX + plantWidth) {
+    if(playerPositions.player27.y >= plantY && playerPositions.player27.y <= plantY + plantHeight){
+    declareVictor('player27');
+  console.log(bestPathFound);
+    }
+  } 
+if(playerPositions.player28.x >= plantX && playerPositions.player28.x <= plantX + plantWidth) {
+    if(playerPositions.player28.y >= plantY && playerPositions.player28.y <= plantY + plantHeight){
+    declareVictor('player28');
+  console.log(bestPathFound);
+    }
+  } 
+if(playerPositions.player29.x >= plantX && playerPositions.player29.x <= plantX + plantWidth) {
+    if(playerPositions.player29.y >= plantY && playerPositions.player29.y <= plantY + plantHeight){
+    declareVictor('player29');
+  console.log(bestPathFound);
+    }
+  } 
+if(playerPositions.player30.x >= plantX && playerPositions.player30.x <= plantX + plantWidth) {
+    if(playerPositions.player30.y >= plantY && playerPositions.player30.y <= plantY + plantHeight){
+    declareVictor('player30');
+  console.log(bestPathFound);
+    }
+  } 
 
 }
 
@@ -511,7 +675,17 @@ player16: {x: startingX, y: startingY},
 player17: {x: startingX, y: startingY},
 player18: {x: startingX, y: startingY},
 player19: {x: startingX, y: startingY},
-player20: {x: startingX, y: startingY}
+player20: {x: startingX, y: startingY},
+player21: {x: startingX, y: startingY},
+player22: {x: startingX, y: startingY},
+player23: {x: startingX, y: startingY},
+player24: {x: startingX, y: startingY},
+player25: {x: startingX, y: startingY},
+player26: {x: startingX, y: startingY},
+player27: {x: startingX, y: startingY},
+player28: {x: startingX, y: startingY},
+player29: {x: startingX, y: startingY},
+player30: {x: startingX, y: startingY}
   };
 
   movesThisGeneration = {
@@ -534,7 +708,17 @@ player20: {x: startingX, y: startingY}
     player17: [],
     player18: [],
     player19: [],
-    player20: []
+    player20: [],
+    player21: [],
+    player22: [],
+    player23: [],
+    player24: [],
+    player25: [],
+    player26: [],
+    player27: [],
+    player28: [],
+    player29: [],
+    player30: []
 
   };
 
