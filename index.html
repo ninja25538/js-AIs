@@ -11,7 +11,9 @@
 <p id="gen"></p>
 <canvas id="canvas"></canvas>
   <script>
-    //Much credit to Arjes on Reddit for helping me out!
+    //Much credit to Arjes on Reddit for helping me out
+    
+    var text = false;
 
 var c=document.getElementById("canvas");
 var ctx=c.getContext("2d");
@@ -1028,7 +1030,16 @@ player50: {x: startingX, y: startingY}
 }
 
 setInterval(tick, 1);
- 
+    
+ setInterval(function(){
+   if(text == true){
+    document.getElementById("moves").innerHTML = bestPathFound; 
+   }
+ }, 1);
   </script>
+  <button onclick ="text=true"></button>
+  <p id="moves">
+    
+  </p>
 </body>
 </html>
