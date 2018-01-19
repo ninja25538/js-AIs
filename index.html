@@ -13,8 +13,8 @@
 <body>
 <p id="gen"></p>
     <button onclick ="text=true">Do da text</button>
-<button onclick="localStorage.save = JSON.stringify(bestPathFound);alert(bestPathFound);alert(localStorage.save);text=true;document.getElementById("moves").innerHTML = bestPathFound; ">Save</button>
-<button onclick="var lol = localStorage.save;var bp = JSON.parse(lol);bestPathFound = bp;alert(localStorage.save);text=true;document.getElementById("moves").innerHTML = bestPathFound; ">Load</button>
+<button onclick="localStorage.save = JSON.stringify(bestPathFound);alert(bestPathFound);alert(localStorage.save);text=true;document.getElementById('moves').innerHTML = bestPathFound; ">Save</button>
+<button onclick="var lol = localStorage.save;var bp = JSON.parse(lol);bestPathFound = bp;alert(localStorage.save);text=true;document.getElementById('moves').innerHTML = bestPathFound; ">Load</button>
 <canvas id="canvas"></canvas>
   <script>
 function setCookie(cname, cvalue, exdays) {
