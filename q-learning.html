@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+<title>Q Learning</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+//I figured out that Q-Learning is a bunch more effective than my "Genetic Algorithm" lol
+//Much of this is forked from my Genetic Algorithm and even more comes from a project I made in 6th Grade and even more comes from a game I'm making
+var c=document.getElementById("canvas");
+var ctx=c.getContext("2d");
+ctx.canvas.width = window.innerWidth - 75;
+ctx.canvas.height = window.innerHeight - 75;
+
+var direction = "";
+
+var startingX = 50;
+var startingY = 250;
+
+//Coordinates
+var agentX = startingX;
+var agentY = startingY;
+
+var plantX = 80;
+var plantY = ctx.canvas.height - 50;
+
+var plantWidth = 5;
+var plantHeight = 5;
+
+//Changed name of AI to agent since apparently that's what it's actually called
+function drawAgent(){
+  ctx.fillStyle = "white";
+  ctx.fillRect(agentX - 5, agentY - 5, 20, 20);
+  ctx.fillStyle = "red";
+  ctx.fillRect(agentX, agentY, 5, 5);
+}
+
+//The plant or area or whatever the agent has to arrive at
+function drawPlant(){
+  ctx.fillStyle = "green";
+  ctx.fillRect(plantX, plantY, plantWidth, plantHeight);
+}
+
+//This moves the agent depending on what his direction is
+setInterval(function(){
+if (direction == "up"){
+agentY -= 5;
+drawAgent();
+} else if (direction == "down"){
+agentY += 5;
+drawAgent();
+} else if (direction == "left"){
+agentX -= 5;
+drawAgent();
+} else if (direction == "right"){
+agentX += 5;
+drawAgent();
+}
+}, 1);
+
+
+setInterval(function(){
+if (agentX < plantX){
+direction = "right";
+} else if (agnetX > plantX + plantWidth){
+direction = "left";
+} 
+
+if(agentY > plantY + plantHeight){
+direction = "up";
+} else if(agentY < plantY){
+direction = "down";
+}
+}, 1);
+</script>
+</body>
+</html>
