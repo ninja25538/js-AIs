@@ -19,6 +19,9 @@ var direction = "";
 
 var startingX = 0;
 var startingY = 0;
+  
+//The quickest path to the plant
+var bestPathFound = [];
 
 //Coordinates
 var agentX = startingX;
@@ -29,6 +32,9 @@ var plantY = ctx.canvas.height/2;
 
 var plantWidth = 50;
 var plantHeight = 50;
+
+//Whether the agent is recording all of its moves or not.
+var recording = "true";
 
 //Changed name of AI to agent since apparently that's what it's actually called
 function drawAgent(){
@@ -49,15 +55,27 @@ drawPlant();
 //This moves the agent depending on what his direction is
 setInterval(function(){
 if (direction == "up"){
+if(recording == "true"){
+bestPathFound.push("up");
+}
 agentY -= 5;
 drawAgent();
 } else if (direction == "down"){
+if(recording == "true"){
+bestPathFound.push("down");
+}
 agentY += 5;
 drawAgent();
 } else if (direction == "left"){
+if(recording == "true"){
+bestPathFound.push("left");
+}
 agentX -= 5;
 drawAgent();
 } else if (direction == "right"){
+if(recording == "true"){
+bestPathFound.push("right");
+}
 agentX += 5;
 drawAgent();
 }
@@ -77,6 +95,16 @@ direction = "up";
 direction = "down";
 }
 }, 1);
+  
+  
+setInterval(function(){
+  if(agentX <= plantX + plantWidth && agentX >= plantX && agentY <= plantY + plantHeight && agentY >= plantY){
+   recording = "false";
+    console.log(bestPathFound);
+  }
+}, 1);
+  
+ //1200 lines of code vs 80 lol. And this one is far more effective.
 </script>
 </body>
 </html>
