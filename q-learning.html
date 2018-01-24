@@ -27,8 +27,8 @@ var agentY = startingY;
 var plantX = 80;
 var plantY = ctx.canvas.height - 50;
 
-var plantWidth = 5;
-var plantHeight = 5;
+var plantWidth = 50;
+var plantHeight = 50;
 
 //Changed name of AI to agent since apparently that's what it's actually called
 function drawAgent(){
@@ -43,6 +43,8 @@ function drawPlant(){
   ctx.fillStyle = "green";
   ctx.fillRect(plantX, plantY, plantWidth, plantHeight);
 }
+
+drawPlant();
 
 //This moves the agent depending on what his direction is
 setInterval(function(){
@@ -65,7 +67,7 @@ drawAgent();
 setInterval(function(){
 if (agentX < plantX){
 direction = "right";
-} else if (agnetX > plantX + plantWidth){
+} else if (agentX > plantX + plantWidth){
 direction = "left";
 } 
 
